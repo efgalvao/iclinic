@@ -1,12 +1,16 @@
 import requests
 import json
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def get_forecast():
     """
     Get Weather forecast from openweather.
     """
-    url = 'https://api.openweathermap.org/data/2.5/onecall?lat=-21.1775000&lon=-47.8102800&exclude=hourly&appid=3985ca4c369bb3eb675da1bcd4a40690'
+    key = os.getenv("openweather")
+    url = 'https://api.openweathermap.org/data/2.5/onecall?lat=-21.1775000&lon=-47.8102800&exclude=hourly&appid={}'.format(key)
     response = requests.get(url)
     data = response.json()
     forecast = data['daily'][1:6]
